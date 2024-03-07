@@ -11,9 +11,4 @@ public final class Static724 {
 		Static59.anInt5936 = 0;
 		return Static557.method7333();
 	}
-
-	@OriginalMember(owner = "client!wv", name = "a", descriptor = "(II)V")
-	public static void method9453(@OriginalArg(0) int arg0) {
-		Static324.aLong164 = 1000000000L / (long) arg0;
-	}
 }

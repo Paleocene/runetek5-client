@@ -351,7 +351,7 @@ public final class Static489 {
 		Static199.method2977();
 		Static75.aBoolean521 = true;
 		if (Static28.aBoolean43) {
-			Static79.method1579("Took: " + (Static588.currentTimeWithDrift() - Static690.aLong318) + "ms");
+			Static79.method1579("Took: " + (Static588.getCurrentTimeWithDrift() - Static690.aLong318) + "ms");
 			Static28.aBoolean43 = false;
 		}
 	}

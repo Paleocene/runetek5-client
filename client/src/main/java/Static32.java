@@ -11,7 +11,7 @@ public final class Static32 {
 	public static int anInt775;
 
 	@OriginalMember(owner = "client!bba", name = "Z", descriptor = "I")
-	public static int anInt776;
+	public static int frameCountLeft;
 
 	@OriginalMember(owner = "client!bba", name = "D", descriptor = "I")
 	public static int anInt773 = 0;

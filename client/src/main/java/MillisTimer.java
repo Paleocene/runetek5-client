@@ -7,81 +7,81 @@ import org.openrs2.deob.annotation.Pc;
 public final class MillisTimer extends Timer {
 
 	@OriginalMember(owner = "client!au", name = "j", descriptor = "J")
-	private long aLong18 = 0L;
+	private long currentTimeWithDrift = 0L;
 
 	@OriginalMember(owner = "client!au", name = "h", descriptor = "I")
-	private int anInt631 = 0;
+	private int lastDriftsIndex = 0;
 
 	@OriginalMember(owner = "client!au", name = "k", descriptor = "[J")
-	private final long[] aLongArray1 = new long[10];
+	private final long[] lastDrifts = new long[10];
 
 	@OriginalMember(owner = "client!au", name = "g", descriptor = "I")
-	private int anInt630 = 1;
+	private int driftsRecorded = 1;
 
 	@OriginalMember(owner = "client!au", name = "i", descriptor = "J")
-	private long aLong19 = 0L;
+	private long targetTime = 0L;
 
 	@OriginalMember(owner = "client!au", name = "l", descriptor = "J")
-	private long aLong20 = 0L;
+	private long lastTimeWithDrift = 0L;
 
 	@OriginalMember(owner = "client!au", name = "a", descriptor = "(I)V")
 	@Override
-	public void method5597() {
-		this.aLong20 = 0L;
-		if (this.aLong19 > this.aLong18) {
-			this.aLong18 += this.aLong19 - this.aLong18;
+	public void reset() {
+		this.lastTimeWithDrift = 0L;
+		if (this.targetTime > this.currentTimeWithDrift) {
+			this.currentTimeWithDrift += this.targetTime - this.currentTimeWithDrift;
 		}
 	}
 
 	@OriginalMember(owner = "client!au", name = "b", descriptor = "(B)J")
 	@Override
-	protected long method5599() {
-		this.aLong18 += this.method734();
-		return this.aLong18 < this.aLong19 ? (this.aLong19 - this.aLong18) / 1000000L : 0L;
+	protected long getSleepTime() {
+		this.currentTimeWithDrift += this.calculateDrift();
+		return this.currentTimeWithDrift < this.targetTime ? (this.targetTime - this.currentTimeWithDrift) / 1_000_000L : 0L;
 	}
 
 	@OriginalMember(owner = "client!au", name = "b", descriptor = "(I)J")
 	@Override
-	public long method5602() {
-		return this.aLong18;
+	public long getCurrentTimeWithDrift() {
+		return this.currentTimeWithDrift;
 	}
 
 	@OriginalMember(owner = "client!au", name = "a", descriptor = "(BJ)I")
 	@Override
-	protected int method5596(@OriginalArg(1) long arg0) {
-		if (this.aLong19 > this.aLong18) {
-			this.aLong20 += this.aLong19 - this.aLong18;
-			this.aLong18 += this.aLong19 - this.aLong18;
-			this.aLong19 += arg0;
+	protected int getTickCount(@OriginalArg(1) long frequency) {
+		if (this.targetTime > this.currentTimeWithDrift) {
+			this.lastTimeWithDrift += this.targetTime - this.currentTimeWithDrift;
+			this.currentTimeWithDrift += this.targetTime - this.currentTimeWithDrift;
+			this.targetTime += frequency;
 			return 1;
 		}
-		@Pc(47) int local47 = 0;
+		@Pc(47) int count = 0;
 		do {
-			local47++;
-			this.aLong19 += arg0;
-		} while (local47 < 10 && this.aLong18 > this.aLong19);
-		if (this.aLong18 > this.aLong19) {
-			this.aLong19 = this.aLong18;
+			count++;
+			this.targetTime += frequency;
+		} while (count < 10 && this.currentTimeWithDrift > this.targetTime);
+		if (this.currentTimeWithDrift > this.targetTime) {
+			this.targetTime = this.currentTimeWithDrift;
 		}
-		return local47;
+		return count;
 	}
 
 	@OriginalMember(owner = "client!au", name = "c", descriptor = "(B)J")
-	private long method734() {
-		@Pc(10) long local10 = Static588.currentTimeWithDrift() * 1000000L;
-		@Pc(16) long local16 = local10 - this.aLong20;
-		this.aLong20 = local10;
-		if (local16 > -5000000000L && local16 < 5000000000L) {
-			this.aLongArray1[this.anInt631] = local16;
-			this.anInt631 = (this.anInt631 + 1) % 10;
-			if (this.anInt630 < 10) {
-				this.anInt630++;
+	private long calculateDrift() {
+		@Pc(10) long now = Static588.getCurrentTimeWithDrift() * 1_000_000L;
+		@Pc(16) long delta = now - this.lastTimeWithDrift;
+		this.lastTimeWithDrift = now;
+		if (delta > -5_000_000_000L && delta < 5_000_000_000L) {
+			this.lastDrifts[this.lastDriftsIndex] = delta;
+			this.lastDriftsIndex = (this.lastDriftsIndex + 1) % 10;
+			if (this.driftsRecorded < 10) {
+				this.driftsRecorded++;
 			}
 		}
-		@Pc(61) long local61 = 0L;
-		for (@Pc(63) int local63 = 1; local63 <= this.anInt630; local63++) {
-			local61 += this.aLongArray1[(this.anInt631 + 10 - local63) % 10];
+		@Pc(61) long totalDrift = 0L;
+		for (@Pc(63) int i = 1; i <= this.driftsRecorded; i++) {
+			totalDrift += this.lastDrifts[(this.lastDriftsIndex + 10 - i) % 10];
 		}
-		return local61 / (long) this.anInt630;
+		return totalDrift / (long) this.driftsRecorded;
 	}
 }

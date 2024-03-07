@@ -21,8 +21,8 @@ public final class Static647 {
 	}
 
 	@OriginalMember(owner = "client!uh", name = "a", descriptor = "(Ljava/lang/String;I)I")
-	public static int method8473(@OriginalArg(0) String arg0) {
-		return Static269.method3908(arg0, 10);
+	public static int parseDecimalInt(@OriginalArg(0) String input) {
+		return Static269.parseInt(input, 10);
 	}
 
 	@OriginalMember(owner = "client!uh", name = "a", descriptor = "(JZII)Ljava/lang/String;")

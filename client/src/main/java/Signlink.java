@@ -325,7 +325,7 @@ public final class Signlink implements Runnable {
 
 	@OriginalMember(owner = "client!vq", name = "b", descriptor = "(B)V")
 	public void method8994() {
-		Static689.aLong317 = Static588.currentTimeWithDrift() + 5000L;
+		Static689.aLong317 = Static588.getCurrentTimeWithDrift() + 5000L;
 	}
 
 	@OriginalMember(owner = "client!vq", name = "a", descriptor = "(IB[ILjava/awt/Component;Ljava/awt/Point;I)Lclient!oba;")
@@ -360,12 +360,12 @@ public final class Signlink implements Runnable {
 			try {
 				@Pc(42) int local42 = local15.anInt6790;
 				if (local42 == 1) {
-					if (Static588.currentTimeWithDrift() < Static689.aLong317) {
+					if (Static588.getCurrentTimeWithDrift() < Static689.aLong317) {
 						throw new IOException();
 					}
 					local15.anObject13 = new Socket(InetAddress.getByName((String) local15.anObject12), local15.anInt6788);
 				} else if (local42 == 22) {
-					if (Static689.aLong317 > Static588.currentTimeWithDrift()) {
+					if (Static689.aLong317 > Static588.getCurrentTimeWithDrift()) {
 						throw new IOException();
 					}
 					try {
@@ -381,7 +381,7 @@ public final class Signlink implements Runnable {
 					local911.setPriority(local15.anInt6788);
 					local15.anObject13 = local911;
 				} else if (local42 == 4) {
-					if (Static588.currentTimeWithDrift() < Static689.aLong317) {
+					if (Static588.getCurrentTimeWithDrift() < Static689.aLong317) {
 						throw new IOException();
 					}
 					local15.anObject13 = new DataInputStream(((URL) local15.anObject12).openStream());
@@ -409,13 +409,13 @@ public final class Signlink implements Runnable {
 					} else if (this.aBoolean781) {
 						@Pc(220) String local220;
 						if (local42 == 3) {
-							if (Static588.currentTimeWithDrift() < Static689.aLong317) {
+							if (Static588.getCurrentTimeWithDrift() < Static689.aLong317) {
 								throw new IOException();
 							}
 							local220 = (local15.anInt6788 >> 24 & 0xFF) + "." + (local15.anInt6788 >> 16 & 0xFF) + "." + (local15.anInt6788 >> 8 & 0xFF) + "." + (local15.anInt6788 & 0xFF);
 							local15.anObject13 = InetAddress.getByName(local220).getHostName();
 						} else if (local42 == 21) {
-							if (Static588.currentTimeWithDrift() < Static689.aLong317) {
+							if (Static588.getCurrentTimeWithDrift() < Static689.aLong317) {
 								throw new IOException();
 							}
 							local15.anObject13 = InetAddress.getByName((String) local15.anObject12).getAddress();

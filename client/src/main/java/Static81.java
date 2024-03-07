@@ -96,7 +96,7 @@ public final class Static81 {
 			if (local17 == null) {
 				return null;
 			}
-			if (local17.method201() > Static588.currentTimeWithDrift()) {
+			if (local17.method201() > Static588.getCurrentTimeWithDrift()) {
 				return null;
 			}
 			local17.unlink();

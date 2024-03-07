@@ -8,7 +8,7 @@ public final class Static271 {
 
 	@OriginalMember(owner = "client!ij", name = "a", descriptor = "(I)J")
 	public static long method3929() {
-		return Static600.aTimer1.method5602();
+		return Static600.aTimer1.getCurrentTimeWithDrift();
 	}
 
 	@OriginalMember(owner = "client!ij", name = "c", descriptor = "(B)V")

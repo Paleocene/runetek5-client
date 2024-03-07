@@ -17,7 +17,17 @@ public final class Static324 {
 	public static final int[] anIntArray390 = new int[500];
 
 	@OriginalMember(owner = "client!ke", name = "e", descriptor = "J")
-	public static long aLong164 = 20000000L;
+	public static long frameRateNs = 20_000_000L;
+
+	@OriginalMember(owner = "client!wv", name = "a", descriptor = "(II)V")
+	public static void setFrameRate(@OriginalArg(0) int fps) {
+		Static324.frameRateNs = 1_000_000_000L / (long) fps;
+	}
+
+	@OriginalMember(owner = "client!pt", name = "c", descriptor = "(B)I")
+	public static int getFps() {
+		return (int) (1_000_000_000L / Static324.frameRateNs);
+	}
 
 	@OriginalMember(owner = "client!ke", name = "a", descriptor = "(ZZIILclient!ha;)Lclient!da;")
 	public static Class14 method4628(@OriginalArg(0) boolean arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) int arg2, @OriginalArg(4) Class19 arg3) {

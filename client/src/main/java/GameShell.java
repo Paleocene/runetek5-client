@@ -196,14 +196,14 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@OriginalMember(owner = "client!kh", name = "e", descriptor = "(I)V")
 	private void method1639() {
-		@Pc(6) long local6 = Static588.currentTimeWithDrift();
+		@Pc(6) long local6 = Static588.getCurrentTimeWithDrift();
 		@Pc(17) long local17 = Static475.aLongArray16[Static708.anInt10644];
 		Static475.aLongArray16[Static708.anInt10644] = local6;
 		if (local17 != 0L && local17 < local6) {
 			@Pc(40) int local40 = (int) (local6 - local17);
 			Static652.anInt9712 = ((local40 >> 1) + 32000) / local40;
 		}
-		Static708.anInt10644 = Static708.anInt10644 + 1 & 0x1F;
+		Static708.anInt10644 = (Static708.anInt10644 + 1) % 32;
 		if (Static169.anInt2850++ > 50) {
 			Static664.aBoolean759 = true;
 			Static169.anInt2850 -= 50;
@@ -303,10 +303,10 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 			Static148.method2429();
 			this.method1641();
 			this.method1647();
-			Static600.aTimer1 = Static570.method7550();
-			while (shutDownTimestamp == 0L || Static588.currentTimeWithDrift() < shutDownTimestamp) {
-				Static32.anInt776 = Static600.aTimer1.method5598(Static324.aLong164);
-				for (@Pc(213) int local213 = 0; local213 < Static32.anInt776; local213++) {
+			Static600.aTimer1 = Static570.createTimer();
+			while (shutDownTimestamp == 0L || Static588.getCurrentTimeWithDrift() < shutDownTimestamp) {
+				Static32.frameCountLeft = Static600.aTimer1.getTimerTicks(Static324.frameRateNs);
+				for (@Pc(213) int i = 0; i < Static32.frameCountLeft; i++) {
 					this.method1646();
 				}
 				this.method1639();
@@ -340,7 +340,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 			return;
 		}
 		Static664.aBoolean759 = true;
-		if (Static463.aBoolean531 && Static588.currentTimeWithDrift() - Static149.aLong96 > 1000L) {
+		if (Static463.aBoolean531 && Static588.getCurrentTimeWithDrift() - Static149.aLong96 > 1000L) {
 			@Pc(28) Rectangle local28 = arg0.getClipBounds();
 			if (local28 == null || Static52.anInt1059 <= local28.width && local28.height >= Static54.anInt1084) {
 				Static723.aBoolean827 = true;
@@ -363,7 +363,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	@Override
 	public final void stop() {
 		if (Static149.aGameShell == this && !isShuttingDown) {
-			shutDownTimestamp = Static588.currentTimeWithDrift() + 4000L;
+			shutDownTimestamp = Static588.getCurrentTimeWithDrift() + 4000L;
 		}
 	}
 
@@ -404,7 +404,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		Static206.aBoolean268 = true;
 		Static664.aBoolean759 = true;
 		Static723.aBoolean827 = false;
-		Static149.aLong96 = Static588.currentTimeWithDrift();
+		Static149.aLong96 = Static588.getCurrentTimeWithDrift();
 	}
 
 	@OriginalMember(owner = "client!kh", name = "d", descriptor = "(B)Z")
@@ -443,16 +443,9 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@OriginalMember(owner = "client!kh", name = "f", descriptor = "(I)V")
 	private void method1646() {
-		@Pc(6) long local6 = Static588.currentTimeWithDrift();
-		@Pc(10) long local10 = Static221.aLongArray18[Static392.anInt6142];
-		Static221.aLongArray18[Static392.anInt6142] = local6;
-		@Pc(31) boolean local31;
-		if (local10 == 0L || local10 >= local6) {
-			local31 = false;
-		} else {
-			local31 = true;
-		}
-		Static392.anInt6142 = Static392.anInt6142 + 1 & 0x1F;
+		@Pc(6) long now = Static588.getCurrentTimeWithDrift();
+        Static221.timeStamps[Static221.timeStampsArrayIndex] = now;
+		Static221.timeStampsArrayIndex = (Static221.timeStampsArrayIndex + 1) % 32;
 		synchronized (this) {
 			Static91.aBoolean750 = Static206.aBoolean268;
 		}
@@ -487,7 +480,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	@Override
 	public final void destroy() {
 		if (Static149.aGameShell == this && !isShuttingDown) {
-			shutDownTimestamp = Static588.currentTimeWithDrift();
+			shutDownTimestamp = Static588.getCurrentTimeWithDrift();
 			Static638.sleep(5000L);
 			Static284.aSignlink4 = null;
 			this.shutDown(false);

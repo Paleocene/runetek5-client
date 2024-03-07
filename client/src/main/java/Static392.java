@@ -5,9 +5,6 @@ public final class Static392 {
 	@OriginalMember(owner = "client!mf", name = "a", descriptor = "I")
 	public static int anInt6141;
 
-	@OriginalMember(owner = "client!mf", name = "d", descriptor = "I")
-	public static int anInt6142;
-
 	@OriginalMember(owner = "client!mf", name = "c", descriptor = "Lclient!ul;")
 	public static ModeGame clientModeGame = null;
 

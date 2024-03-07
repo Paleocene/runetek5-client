@@ -21,7 +21,7 @@ public final class Static12 {
 
 	@OriginalMember(owner = "client!ah", name = "a", descriptor = "(Ljava/lang/String;IZ)I")
 	public static int method5162(@OriginalArg(0) String arg0) {
-		return Static269.method3908(arg0, 16);
+		return Static269.parseInt(arg0, 16);
 	}
 
 	@OriginalMember(owner = "client!ah", name = "a", descriptor = "(Lclient!ge;I)V")

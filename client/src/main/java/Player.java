@@ -119,7 +119,7 @@ public final class Player extends PathingEntity {
 
 	@OriginalMember(owner = "client!ca", name = "a", descriptor = "(IILjava/lang/String;B)V")
 	public void method1413(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) String arg2) {
-		this.method9313(Static504.method6733() * Static65.aClass3_1.anInt87, arg2, arg1, arg0);
+		this.method9313(Static324.getFps() * Static65.aClass3_1.anInt87, arg2, arg1, arg0);
 	}
 
 	@OriginalMember(owner = "client!ca", name = "a", descriptor = "(BIIILclient!ka;Lclient!tt;Lclient!ha;I)V")

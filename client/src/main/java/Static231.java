@@ -290,7 +290,7 @@ public final class Static231 {
 					return;
 				}
 				if (arg2.equalsIgnoreCase("rebuildprofile")) {
-					Static690.aLong318 = Static588.currentTimeWithDrift();
+					Static690.aLong318 = Static588.getCurrentTimeWithDrift();
 					Static28.aBoolean43 = true;
 					Static449.method6116();
 					Static244.method3512();
@@ -389,7 +389,7 @@ public final class Static231 {
 						Static79.method1579("Invalid buildarea value");
 						return;
 					}
-					local501 = Static647.method8473(arg2.substring(6));
+					local501 = Static647.parseDecimalInt(arg2.substring(6));
 					if (local501 >= 0 && local501 <= Static461.method6268(Static369.anInt4265)) {
 						Static400.aClass2_Sub34_28.method5104(local501, Static400.aClass2_Sub34_28.aPreference_Sub5_1);
 						Static666.method8693(1);
@@ -405,7 +405,7 @@ public final class Static231 {
 						Static79.method1579("Invalid rect_debug value");
 						return;
 					}
-					Static18.anInt251 = Static647.method8473(arg2.substring(10).trim());
+					Static18.anInt251 = Static647.parseDecimalInt(arg2.substring(10).trim());
 					Static79.method1579("rect_debug=" + Static18.anInt251);
 					return;
 				}
@@ -683,7 +683,7 @@ public final class Static231 {
 						Static79.method1579("Syntax: ortho <n>");
 						return;
 					}
-					local725 = Static647.method8473(arg2.substring(local501 + 1));
+					local725 = Static647.parseDecimalInt(arg2.substring(local501 + 1));
 					Static400.aClass2_Sub34_28.method5104(local725, Static400.aClass2_Sub34_28.aPreference_Sub3_1);
 					Static666.method8693(1);
 					Static503.aBoolean578 = false;
@@ -700,13 +700,13 @@ public final class Static231 {
 						Static79.method1579("enable ortho mode first (use 'ortho <n>')");
 						return;
 					}
-					local501 = Static647.method8473(arg2.substring(arg2.indexOf(32) + 1));
+					local501 = Static647.parseDecimalInt(arg2.substring(arg2.indexOf(32) + 1));
 					Static582.anInt8630 = local501;
 					Static79.method1579("orthozoom=" + Static582.anInt8630);
 					return;
 				}
 				if (arg2.startsWith("orthotilesize ")) {
-					local501 = Static647.method8473(arg2.substring(arg2.indexOf(32) + 1));
+					local501 = Static647.parseDecimalInt(arg2.substring(arg2.indexOf(32) + 1));
 					Static288.anInt4620 = local501;
 					Static32.anInt777 = local501;
 					Static79.method1579("ortho tile size=" + local501);
@@ -719,7 +719,7 @@ public final class Static231 {
 					return;
 				}
 				if (arg2.startsWith("skydetail ")) {
-					local501 = Static647.method8473(arg2.substring(arg2.indexOf(32) + 1));
+					local501 = Static647.parseDecimalInt(arg2.substring(arg2.indexOf(32) + 1));
 					Static400.aClass2_Sub34_28.method5104(local501, Static400.aClass2_Sub34_28.aPreference_Sub2_1);
 					Static79.method1579("skydetail is " + (Static400.aClass2_Sub34_28.aPreference_Sub2_1.method1989() == 0 ? "low" : "high"));
 					return;
@@ -728,7 +728,7 @@ public final class Static231 {
 				if (arg2.startsWith("setoutput ")) {
 					local2592 = new File(arg2.substring(10));
 					if (local2592.exists()) {
-						local2592 = new File(arg2.substring(10) + "." + Static588.currentTimeWithDrift() + ".log");
+						local2592 = new File(arg2.substring(10) + "." + Static588.getCurrentTimeWithDrift() + ".log");
 						if (local2592.exists()) {
 							Static79.method1579("file already exists!");
 							return;
@@ -771,7 +771,7 @@ public final class Static231 {
 					Static363.method6234(local1621);
 				}
 				if (arg2.startsWith("zoom")) {
-					@Pc(2748) short local2748 = (short) Static647.method8473(arg2.substring(5));
+					@Pc(2748) short local2748 = (short) Static647.parseDecimalInt(arg2.substring(5));
 					if (local2748 > 0) {
 						Static502.zoom = local2748;
 					}
@@ -798,7 +798,7 @@ public final class Static231 {
 					Connection.gameConnection.queue(local2836);
 				}
 				if (arg2.startsWith("fps ") && Static2.aModeWhere1 != ModeWhere.LIVE) {
-					Static724.method9453(Static647.method8473(arg2.substring(4)));
+					Static324.setFrameRate(Static647.parseDecimalInt(arg2.substring(4)));
 					return;
 				}
 			} catch (@Pc(2894) Exception local2894) {

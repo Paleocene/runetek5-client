@@ -7,23 +7,23 @@ import org.openrs2.deob.annotation.Pc;
 public abstract class Timer {
 
 	@OriginalMember(owner = "client!nl", name = "a", descriptor = "(BJ)I")
-	protected abstract int method5596(@OriginalArg(1) long arg0);
+	protected abstract int getTickCount(@OriginalArg(1) long arg0);
 
 	@OriginalMember(owner = "client!nl", name = "a", descriptor = "(I)V")
-	public abstract void method5597();
+	public abstract void reset();
 
 	@OriginalMember(owner = "client!nl", name = "a", descriptor = "(JI)I")
-	public final int method5598(@OriginalArg(0) long arg0) {
-		@Pc(13) long local13 = this.method5599();
-		if (local13 > 0L) {
-			Static638.sleep(local13);
+	public final int getTimerTicks(@OriginalArg(0) long frequency) {
+		@Pc(13) long sleepTimeMs = this.getSleepTime();
+		if (sleepTimeMs > 0L) {
+			Static638.sleep(sleepTimeMs);
 		}
-		return this.method5596(arg0);
+		return this.getTickCount(frequency);
 	}
 
 	@OriginalMember(owner = "client!nl", name = "b", descriptor = "(B)J")
-	protected abstract long method5599();
+	protected abstract long getSleepTime();
 
 	@OriginalMember(owner = "client!nl", name = "b", descriptor = "(I)J")
-	public abstract long method5602();
+	public abstract long getCurrentTimeWithDrift();
 }

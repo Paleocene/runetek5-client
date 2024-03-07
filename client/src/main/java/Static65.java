@@ -27,11 +27,11 @@ public final class Static65 {
 			local7 = true;
 			local5 = Static255.method3612((Js5) null, (Interface4) null, 0, local19, 0);
 		}
-		@Pc(36) long local36 = Static588.currentTimeWithDrift();
+		@Pc(36) long local36 = Static588.getCurrentTimeWithDrift();
 		for (@Pc(38) int local38 = 0; local38 < 10000; local38++) {
 			local5.method7994();
 		}
-		@Pc(71) int local71 = (int) (Static588.currentTimeWithDrift() - local36);
+		@Pc(71) int local71 = (int) (Static588.getCurrentTimeWithDrift() - local36);
 		local5.method7971(100, 100, 0, 0, -16777216);
 		if (local7) {
 			local5.cleanup();

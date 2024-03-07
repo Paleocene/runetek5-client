@@ -21,12 +21,12 @@ public final class Static570 {
 	}
 
 	@OriginalMember(owner = "client!rv", name = "c", descriptor = "(I)Lclient!nl;")
-	public static Timer method7550() {
+	public static Timer createTimer() {
 		try {
 			return new MiscTimer();
 		} catch (@Pc(8) Throwable local8) {
 			try {
-				return (Timer) Class.forName("NanoTimer").getDeclaredConstructor().newInstance();
+				return new NanoTimer();
 			} catch (@Pc(16) Throwable local16) {
 				return new MillisTimer();
 			}

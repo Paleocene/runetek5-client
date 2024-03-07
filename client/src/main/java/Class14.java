@@ -107,7 +107,7 @@ public abstract class Class14 {
 										local174 = arg5[local17];
 									}
 									local17++;
-									@Pc(187) int local187 = Static647.method8473(local64.substring(4));
+									@Pc(187) int local187 = Static647.parseDecimalInt(local64.substring(4));
 									@Pc(191) SoftwareIndexedSprite local191 = arg3[local187];
 									@Pc(201) int local201 = arg6 == null ? local191.method8192() : arg6[local187];
 									local191.method8197(local164 + arg4, local174 + -local201 + local7 + this.aClass381_12.anInt10027, 1, 0, 1);
@@ -214,7 +214,7 @@ public abstract class Class14 {
 						if (!local54.equals("reg")) {
 							if (local54.startsWith("img=")) {
 								try {
-									@Pc(136) int local136 = Static647.method8473(local54.substring(4));
+									@Pc(136) int local136 = Static647.parseDecimalInt(local54.substring(4));
 									@Pc(140) SoftwareIndexedSprite local140 = arg0[local136];
 									@Pc(150) int local150 = arg7 == null ? local140.method8192() : arg7[local136];
 									if ((Static658.anInt9801 & 0xFF000000) == -16777216) {

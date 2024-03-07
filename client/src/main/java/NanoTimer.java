@@ -7,87 +7,68 @@ import org.openrs2.deob.annotation.Pc;
 public final class NanoTimer extends Timer {
 
 	@OriginalMember(owner = "client!di", name = "i", descriptor = "J")
-	private long aLong81 = 0L;
+	private long targetTime = 0L;
 
 	@OriginalMember(owner = "client!di", name = "k", descriptor = "J")
-	private long aLong82 = 0L;
+	private long currentTimeWithDrift = 0L;
 
 	@OriginalMember(owner = "client!di", name = "l", descriptor = "J")
-	private long aLong83 = 0L;
-
-	@OriginalMember(owner = "client!di", name = "g", descriptor = "[J")
-	private final long[] aLongArray2 = new long[10];
-
-	@OriginalMember(owner = "client!di", name = "j", descriptor = "I")
-	private int anInt2211 = 0;
-
-	@OriginalMember(owner = "client!di", name = "h", descriptor = "I")
-	private int anInt2210 = 1;
+	private long lastTimeWithDrift = 0L;
 
 	@OriginalMember(owner = "client!di", name = "<init>", descriptor = "()V")
-	private NanoTimer() {
-		this.aLong82 = System.nanoTime();
-		this.aLong81 = System.nanoTime();
+	public NanoTimer() {
+		this.currentTimeWithDrift = System.nanoTime();
+		this.targetTime = System.nanoTime();
 	}
 
 	@OriginalMember(owner = "client!di", name = "a", descriptor = "(BJ)I")
 	@Override
-	protected int method5596(@OriginalArg(1) long arg0) {
-		if (this.aLong81 > this.aLong82) {
-			this.aLong83 += this.aLong81 - this.aLong82;
-			this.aLong82 += this.aLong81 - this.aLong82;
-			this.aLong81 += arg0;
+	protected int getTickCount(@OriginalArg(1) long frequency) {
+		if (this.targetTime > this.currentTimeWithDrift) {
+			this.lastTimeWithDrift += this.targetTime - this.currentTimeWithDrift;
+			this.currentTimeWithDrift += this.targetTime - this.currentTimeWithDrift;
+			this.targetTime += frequency;
 			return 1;
 		}
-		@Pc(12) int local12 = 0;
+
+		@Pc(12) int count = 0;
 		do {
-			this.aLong81 += arg0;
-			local12++;
-		} while (local12 < 10 && this.aLong82 > this.aLong81);
-		if (this.aLong81 < this.aLong82) {
-			this.aLong81 = this.aLong82;
+			this.targetTime += frequency;
+			count++;
+		} while (count < 10 && this.currentTimeWithDrift > this.targetTime);
+		if (this.targetTime < this.currentTimeWithDrift) {
+			this.targetTime = this.currentTimeWithDrift;
 		}
-		return local12;
+		return count;
 	}
 
 	@OriginalMember(owner = "client!di", name = "b", descriptor = "(B)J")
 	@Override
-	protected long method5599() {
-		this.aLong82 += this.method2092();
-		return this.aLong82 < this.aLong81 ? (this.aLong81 - this.aLong82) / 1000000L : 0L;
+	protected long getSleepTime() {
+		this.currentTimeWithDrift += this.calculateDrift();
+		return this.currentTimeWithDrift < this.targetTime ? (this.targetTime - this.currentTimeWithDrift) / 1_000_000L : 0L;
 	}
 
 	@OriginalMember(owner = "client!di", name = "b", descriptor = "(I)J")
 	@Override
-	public long method5602() {
-		return this.aLong82;
+	public long getCurrentTimeWithDrift() {
+		return this.currentTimeWithDrift;
 	}
 
 	@OriginalMember(owner = "client!di", name = "c", descriptor = "(B)J")
-	private long method2092() {
-		@Pc(1) long local1 = System.nanoTime();
-		@Pc(7) long local7 = local1 - this.aLong83;
-		this.aLong83 = local1;
-		if (local7 > -5000000000L && local7 < 5000000000L) {
-			this.aLongArray2[this.anInt2211] = local7;
-			this.anInt2211 = (this.anInt2211 + 1) % 10;
-			if (this.anInt2210 < 1) {
-				this.anInt2210++;
-			}
-		}
-		@Pc(54) long local54 = 0L;
-		for (@Pc(56) int local56 = 1; local56 <= this.anInt2210; local56++) {
-			local54 += this.aLongArray2[(this.anInt2211 + 10 - local56) % 10];
-		}
-		return local54 / (long) this.anInt2210;
+	private long calculateDrift() {
+		@Pc(1) long now = System.nanoTime();
+		@Pc(7) long delta = now - this.lastTimeWithDrift;
+		this.lastTimeWithDrift = now;
+		return delta;
 	}
 
 	@OriginalMember(owner = "client!di", name = "a", descriptor = "(I)V")
 	@Override
-	public void method5597() {
-		if (this.aLong81 > this.aLong82) {
-			this.aLong82 += this.aLong81 - this.aLong82;
+	public void reset() {
+		if (this.targetTime > this.currentTimeWithDrift) {
+			this.currentTimeWithDrift += this.targetTime - this.currentTimeWithDrift;
 		}
-		this.aLong83 = 0L;
+		this.lastTimeWithDrift = 0L;
 	}
 }

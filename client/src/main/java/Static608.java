@@ -232,7 +232,7 @@ public final class Static608 {
 							if (local913.anInt6360 == 0) {
 								local1071 = true;
 							} else {
-								local409 = Static504.method6733() * 1000 / local913.anInt6360 / 2;
+								local409 = Static324.getFps() * 1000 / local913.anInt6360 / 2;
 								local1071 = local409 > Static333.anInt5455 % (local409 * 2);
 							}
 							if (local1071) {

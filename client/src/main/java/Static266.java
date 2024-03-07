@@ -147,7 +147,7 @@ public final class Static266 {
 			}
 		} catch (@Pc(74) Exception local74) {
 		}
-		Static98.aLong71 = Static588.currentTimeWithDrift();
+		Static98.aLong71 = Static588.getCurrentTimeWithDrift();
 		Static624.aBoolean727 = false;
 	}
 }

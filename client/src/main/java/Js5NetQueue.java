@@ -95,7 +95,7 @@ public final class Js5NetQueue {
 	public boolean method6624() {
 		@Pc(14) int local14;
 		if (this.aClientStream1 != null) {
-			@Pc(7) long local7 = Static588.currentTimeWithDrift();
+			@Pc(7) long local7 = Static588.getCurrentTimeWithDrift();
 			local14 = (int) (local7 - this.aLong238);
 			this.aLong238 = local7;
 			if (local14 > 200) {
@@ -299,7 +299,7 @@ public final class Js5NetQueue {
 							}
 						}
 						this.anInt7451 = 0;
-						this.aLong238 = Static588.currentTimeWithDrift();
+						this.aLong238 = Static588.getCurrentTimeWithDrift();
 						return;
 					}
 					this.aSecondaryLinkedList12.addTail(local48);

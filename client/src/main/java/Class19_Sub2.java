@@ -187,7 +187,7 @@ public final class Class19_Sub2 extends Class19 {
 			this.method8020(0);
 			Static198.method2954(true, true);
 			this.aBoolean330 = true;
-			this.anInt4184 = (int) Static588.currentTimeWithDrift();
+			this.anInt4184 = (int) Static588.getCurrentTimeWithDrift();
 		} catch (@Pc(99) Throwable local99) {
 			local99.printStackTrace();
 			this.cleanup();

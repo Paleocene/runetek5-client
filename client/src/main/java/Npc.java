@@ -394,7 +394,7 @@ public final class Npc extends PathingEntity {
 
 	@OriginalMember(owner = "client!wj", name = "a", descriptor = "(IILjava/lang/String;B)V")
 	public void method9327(@OriginalArg(2) String arg0) {
-		@Pc(17) int local17 = Static504.method6733() * Static65.aClass3_1.anInt85;
+		@Pc(17) int local17 = Static324.getFps() * Static65.aClass3_1.anInt85;
 		this.method9313(local17, arg0, 0, 0);
 	}
 

@@ -58,7 +58,7 @@ public final class Static588 {
 	}
 
 	@OriginalMember(owner = "client!sj", name = "a", descriptor = "(Z)J")
-	public static synchronized long currentTimeWithDrift() {
+	public static synchronized long getCurrentTimeWithDrift() {
 		@Pc(5) long now = System.currentTimeMillis();
 		if (nowWithDrift > now) {
 			drift += nowWithDrift - now;

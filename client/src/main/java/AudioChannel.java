@@ -29,7 +29,7 @@ public class AudioChannel {
 	private boolean isClosed = false;
 
 	@OriginalMember(owner = "client!cd", name = "e", descriptor = "J")
-	private long aLong128 = Static588.currentTimeWithDrift();
+	private long aLong128 = Static588.getCurrentTimeWithDrift();
 
 	@OriginalMember(owner = "client!cd", name = "h", descriptor = "J")
 	private long aLong129 = 0L;
@@ -136,7 +136,7 @@ public class AudioChannel {
 			this.method3583();
 		} catch (@Pc(19) Exception local19) {
 			this.method3596();
-			this.aLong129 = Static588.currentTimeWithDrift() + 2000L;
+			this.aLong129 = Static588.getCurrentTimeWithDrift() + 2000L;
 		}
 	}
 
@@ -149,7 +149,7 @@ public class AudioChannel {
 		if (this.isClosed) {
 			return;
 		}
-		@Pc(11) long local11 = Static588.currentTimeWithDrift();
+		@Pc(11) long local11 = Static588.getCurrentTimeWithDrift();
 		try {
 			if (this.aLong128 + 6000L < local11) {
 				this.aLong128 = local11 - 6000L;
@@ -157,7 +157,7 @@ public class AudioChannel {
 			while (local11 > this.aLong128 + 5000L) {
 				this.method3584();
 				this.aLong128 += (long) (256000 / Static686.anInt8944);
-				local11 = Static588.currentTimeWithDrift();
+				local11 = Static588.getCurrentTimeWithDrift();
 			}
 		} catch (@Pc(54) Exception local54) {
 			this.aLong128 = local11;
@@ -316,7 +316,7 @@ public class AudioChannel {
 		if (this.aClass2_Sub6_6 != null) {
 			this.aClass2_Sub6_6.method9131(arg0, 0, 256);
 		}
-		this.aLong128 = Static588.currentTimeWithDrift();
+		this.aLong128 = Static588.getCurrentTimeWithDrift();
 	}
 
 	@OriginalMember(owner = "client!cd", name = "c", descriptor = "()V")

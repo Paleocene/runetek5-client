@@ -8,52 +8,52 @@ public final class Static269 {
 	public static Js5 aJs558;
 
 	@OriginalMember(owner = "client!iha", name = "a", descriptor = "(ILjava/lang/String;IZ)I")
-	public static int method3908(@OriginalArg(1) String arg0, @OriginalArg(2) int arg1) {
-		if (arg1 > 36) {
-			throw new IllegalArgumentException("Invalid radix:" + arg1);
+	public static int parseInt(@OriginalArg(1) String input, @OriginalArg(2) int radix) {
+		if (radix > 36) {
+			throw new IllegalArgumentException("Invalid radix:" + radix);
 		}
-		@Pc(29) boolean local29 = false;
-		@Pc(31) boolean local31 = false;
-		@Pc(39) int local39 = 0;
-		@Pc(42) int local42 = arg0.length();
-		for (@Pc(44) int local44 = 0; local44 < local42; local44++) {
-			@Pc(49) char local49 = arg0.charAt(local44);
-			if (local44 == 0) {
-				if (local49 == '-') {
-					local29 = true;
+		@Pc(29) boolean isNegative = false;
+		@Pc(31) boolean isValid = false;
+		@Pc(39) int result = 0;
+		@Pc(42) int digits = input.length();
+		for (@Pc(44) int i = 0; i < digits; i++) {
+			@Pc(49) char c = input.charAt(i);
+			if (i == 0) {
+				if (c == '-') {
+					isNegative = true;
 					continue;
 				}
-				if (local49 == '+' && true) {
+				if (c == '+') {
 					continue;
 				}
 			}
-			@Pc(104) int local104;
-			if (local49 >= '0' && local49 <= '9') {
-				local104 = local49 - '0';
-			} else if (local49 >= 'A' && local49 <= 'Z') {
-				local104 = local49 - '7';
-			} else if (local49 >= 'a' && local49 <= 'z') {
-				local104 = local49 - 'W';
+			@Pc(104) int digit;
+			if (c >= '0' && c <= '9') {
+				digit = c - '0';
+			} else if (c >= 'A' && c <= 'Z') {
+				digit = c - '7';
+			} else if (c >= 'a' && c <= 'z') {
+				digit = c - 'W';
 			} else {
 				throw new NumberFormatException();
 			}
-			if (local104 >= arg1) {
+			if (digit >= radix) {
 				throw new NumberFormatException();
 			}
-			if (local29) {
-				local104 = -local104;
+			if (isNegative) {
+				digit = -digit;
 			}
-			@Pc(136) int local136 = local104 + arg1 * local39;
-			if (local39 != local136 / arg1) {
+			@Pc(136) int nextResult = digit + radix * result;
+			if (result != nextResult / radix) {
 				throw new NumberFormatException();
 			}
-			local31 = true;
-			local39 = local136;
+			isValid = true;
+			result = nextResult;
 		}
-		if (!local31) {
+		if (!isValid) {
 			throw new NumberFormatException();
 		}
-		return local39;
+		return result;
 	}
 
 	@OriginalMember(owner = "client!iha", name = "a", descriptor = "(Z)V")

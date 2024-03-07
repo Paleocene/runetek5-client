@@ -119,8 +119,8 @@ public final class Class19_Sub1_Sub2 extends Class19_Sub1 {
 			}
 			@Pc(140) int local140;
 			try {
-				@Pc(134) int local134 = Static647.method8473(local122[0]);
-				local140 = Static647.method8473(local122[1]);
+				@Pc(134) int local134 = Static647.parseDecimalInt(local122[0]);
+				local140 = Static647.parseDecimalInt(local122[1]);
 				this.anInt9278 = local134 * 10 + local140;
 			} catch (@Pc(150) NumberFormatException local150) {
 				throw new RuntimeException("");
@@ -170,7 +170,7 @@ public final class Class19_Sub1_Sub2 extends Class19_Sub1 {
 										local330 = true;
 									}
 									if (local348.length() >= 4 && Static467.method6350(local348.substring(0, 4))) {
-										local140 = Static647.method8473(local348.substring(0, 4));
+										local140 = Static647.parseDecimalInt(local348.substring(0, 4));
 										break;
 									}
 								}
@@ -519,9 +519,9 @@ public final class Class19_Sub1_Sub2 extends Class19_Sub1 {
 			local19 = (IntNode) this.aLinkedList60.removeHead();
 			OpenGL.glDeleteLists((int) local19.id, local19.value);
 		}
-		if (this.E() > 100663296 && this.aLong279 + 60000L < Static588.currentTimeWithDrift()) {
+		if (this.E() > 100663296 && this.aLong279 + 60000L < Static588.getCurrentTimeWithDrift()) {
 			System.gc();
-			this.aLong279 = Static588.currentTimeWithDrift();
+			this.aLong279 = Static588.getCurrentTimeWithDrift();
 		}
 		super.method7977(local11);
 	}
